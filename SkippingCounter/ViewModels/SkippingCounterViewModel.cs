@@ -18,6 +18,7 @@ namespace SkippingCounter.ViewModels
 
             StartCountingCmd = new Command(StartCounting);
             StopCountingCmd = new Command(StopCounting);
+            ResetCountCmd = new Command(() => JumpCount = 0);
         }
 
         public int JumpCount { get => _jumpCount; set => SetProperty(ref _jumpCount, value); }
@@ -27,6 +28,8 @@ namespace SkippingCounter.ViewModels
         public ICommand StartCountingCmd { get; }
 
         public ICommand StopCountingCmd { get; }
+
+        public ICommand ResetCountCmd { get; }
 
         void StartCounting()
         {

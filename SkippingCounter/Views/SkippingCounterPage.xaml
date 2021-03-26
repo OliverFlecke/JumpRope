@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:vm="clr-namespace:SkippingCounter.ViewModels"
+    Title="Counter"
     x:DataType="vm:SkippingCounterViewModel"
     x:Class="SkippingCounter.Views.SkippingCounterPage">
     <ContentPage.BindingContext>
@@ -15,9 +16,11 @@
 
         <Label Text="{Binding JumpCount}" FontSize="40" HorizontalOptions="Center" />
 
-        <StackLayout VerticalOptions="End">
+        <StackLayout VerticalOptions="EndAndExpand">
             <Button Text="Start" Command="{Binding StartCountingCmd}" IsVisible="{Binding IsCounting, Converter={xct:InvertedBoolConverter}}" />
             <Button Text="Stop" Command="{Binding StopCountingCmd}" IsVisible="{Binding IsCounting}" />
+
+            <Button Text="Reset" Command="{Binding ResetCountCmd}" />
         </StackLayout>
     </StackLayout>
 </ContentPage>
