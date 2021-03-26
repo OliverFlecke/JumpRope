@@ -1,14 +1,9 @@
-﻿using SkippingCounter.Views;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace SkippingCounter
 {
     public partial class AppShell : Shell
     {
-        public AppShell()
-        {
-            InitializeComponent();
-        }
-
+        public AppShell() => InitializeComponent();
     }
 }

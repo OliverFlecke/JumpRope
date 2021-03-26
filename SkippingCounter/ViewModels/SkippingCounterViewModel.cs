@@ -1,5 +1,5 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using Serilog;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -12,7 +12,8 @@ namespace SkippingCounter.ViewModels
         int _jumpCount;
         bool _registered;
 
-        public SkippingCounterViewModel()
+        public SkippingCounterViewModel(ILogger logger)
+            : base(logger)
         {
             Accelerometer.ReadingChanged += Accelerometer_ReadingChanged;
 
@@ -54,7 +55,7 @@ namespace SkippingCounter.ViewModels
             {
                 _registered = true;
                 JumpCount++;
-                Console.WriteLine($"Jump #{_jumpCount} {length}");
+                Logger.Debug($"Jump #{_jumpCount} {length}");
             }
             else if (length < 1)
             {

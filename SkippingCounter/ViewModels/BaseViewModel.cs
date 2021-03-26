@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using SkippingCounter.Models;
 using SkippingCounter.Services;
+using Serilog;
 
 namespace SkippingCounter.ViewModels
 {
@@ -12,11 +13,18 @@ namespace SkippingCounter.ViewModels
     {
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
 
+        public BaseViewModel(ILogger logger)
+        {
+            Logger = logger;
+        }
+
         bool isBusy = false;
         public bool IsBusy { get => isBusy; set => SetProperty(ref isBusy, value); }
 
         string title = string.Empty;
         public string Title { get => title; set => SetProperty(ref title, value); }
+
+        protected ILogger Logger { get; }
 
         protected bool SetProperty<T>(
             ref T backingStore,

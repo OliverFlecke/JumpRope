@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿using System.IO;
 using Foundation;
+using Microsoft.Extensions.DependencyInjection;
+using Serilog;
+using Serilog.Events;
 using UIKit;
+using Xamarin.Essentials;
 
 namespace SkippingCounter.iOS
 {
@@ -26,9 +27,23 @@ namespace SkippingCounter.iOS
             Xamarin.Calabash.Start();
 #endif
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            LoadApplication(new App(RegisterServices));
 
             return base.FinishedLaunching(app, options);
+        }
+
+        void RegisterServices(IServiceCollection services)
+        {
+            var logger = new LoggerConfiguration()
+                .WriteTo.NSLog(LogEventLevel.Debug, Constants.SerialLogTemplate)
+                .MinimumLevel.Is(LogEventLevel.Verbose)
+                .WriteTo.File(
+                    Path.Combine(FileSystem.AppDataDirectory, "logs", "app.log"),
+                    rollOnFileSizeLimit: true,
+                    fileSizeLimitBytes: 5 * 1048576, // 5 MB,
+                    retainedFileCountLimit: 5)
+                .CreateLogger();
+            services.AddSingleton<ILogger>(logger);
         }
     }
 }
