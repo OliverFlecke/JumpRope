@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using SkippingCounter.ViewModels;
-using SkippingCounter.Views;
+﻿using SkippingCounter.Views;
 using Xamarin.Forms;
 
 namespace SkippingCounter

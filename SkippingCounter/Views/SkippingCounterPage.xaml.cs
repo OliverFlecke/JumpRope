@@ -2,9 +2,9 @@
 
 namespace SkippingCounter.Views
 {
-    public partial class AboutPage : ContentPage
+    public partial class SkippingCounterPage : ContentPage
     {
-        public AboutPage()
+        public SkippingCounterPage()
         {
             InitializeComponent();
         }
