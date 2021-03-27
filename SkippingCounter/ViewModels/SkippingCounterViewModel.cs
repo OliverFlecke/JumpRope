@@ -20,7 +20,7 @@ namespace SkippingCounter.ViewModels
 
         DateTimeOffset _start;
         List<(TimeSpan, Vector3)> _jumps = new();
-        int _goal = 10;
+        int _goal = Preferences.Get(Constants.PreferenceKeys.JumpGoal, 100);
 
         public SkippingCounterViewModel(
             ILogger logger,
@@ -53,7 +53,11 @@ namespace SkippingCounter.ViewModels
             get => _goal.ToString();
             set
             {
-                if (int.TryParse(value, out int g)) SetProperty(ref _goal, g);
+                if (int.TryParse(value, out int g))
+                {
+                    SetProperty(ref _goal, g);
+                    Preferences.Set(Constants.PreferenceKeys.JumpGoal, g);
+                }
             }
         }
 
