@@ -403,3 +403,7 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+
+# Mobile.BuildTools
+secrets.json
+secrets.*.json

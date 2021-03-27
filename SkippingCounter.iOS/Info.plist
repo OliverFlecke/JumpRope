@@ -21,7 +21,7 @@
 	<key>MinimumOSVersion</key>
 	<string>13</string>
 	<key>CFBundleDisplayName</key>
-	<string>Jump Rope Counter</string>
+	<string>Jump Rope</string>
 	<key>CFBundleIdentifier</key>
 	<string>me.oliverflecke.skippingcounter</string>
 	<key>CFBundleVersion</key>

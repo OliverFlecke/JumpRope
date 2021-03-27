@@ -4,6 +4,10 @@ using System;
 using Microsoft.Extensions.DependencyInjection;
 using SkippingCounter.Services;
 using SkippingCounter.Models;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using SkippingCounter.Helpers;
 
 namespace SkippingCounter
 {
@@ -18,6 +22,9 @@ namespace SkippingCounter
         public App(Action<IServiceCollection>? register = null)
         {
             InitializeComponent();
+
+            AppCenter.Start($"ios={Secrets.iOSAppCenterToken}",
+                   typeof(Analytics), typeof(Crashes));
 
             var services = new ServiceCollection();
 
