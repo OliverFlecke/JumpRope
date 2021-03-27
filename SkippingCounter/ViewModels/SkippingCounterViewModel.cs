@@ -20,7 +20,7 @@ namespace SkippingCounter.ViewModels
 
         readonly List<(TimeSpan, Vector3)> _jumps = new();
 
-        DateTimeOffset _start;
+        DateTimeOffset? _start;
         int _goal = Preferences.Get(Constants.PreferenceKeys.JumpGoal, 100);
 
         public SkippingCounterViewModel(
@@ -36,11 +36,7 @@ namespace SkippingCounter.ViewModels
 
             StartCountingCmd = new Command(StartCounting);
             StopCountingCmd = new Command(StopCounting);
-            ResetCountCmd = new Command(() =>
-            {
-                _jumps.Clear();
-                RaisePropertyChanged(nameof(JumpCount));
-            });
+            ResetCountCmd = new Command(Reset);
         }
 
         public ICommand StartCountingCmd { get; }
@@ -54,7 +50,7 @@ namespace SkippingCounter.ViewModels
             get => _goal.ToString();
             set
             {
-                if (int.TryParse(value, out int g))
+                if (int.TryParse(value, out var g))
                 {
                     SetProperty(ref _goal, g);
                     Preferences.Set(Constants.PreferenceKeys.JumpGoal, g);
@@ -68,7 +64,7 @@ namespace SkippingCounter.ViewModels
 
         void StartCounting()
         {
-            _start = DateTimeOffset.Now;
+            if (_start is null) _start = DateTimeOffset.Now;
             _accelerometer.Start(Speed);
             RaisePropertyChanged(nameof(IsCounting));
         }
@@ -78,12 +74,22 @@ namespace SkippingCounter.ViewModels
             _accelerometer.Stop();
             RaisePropertyChanged(nameof(IsCounting));
 
-            _skippingStore.AddItemAsync(new SkippingSession(_start, DateTimeOffset.Now, _jumps));
+            if (_start is not null)
+                _skippingStore.AddItemAsync(new SkippingSession(_start.Value, DateTimeOffset.Now, _jumps));
+        }
+
+        void Reset()
+        {
+            _jumps.Clear();
+            _start = null;
+            RaisePropertyChanged(nameof(JumpCount));
         }
 
         void WhenJumped(Vector3 vector)
         {
-            _jumps.Add((DateTimeOffset.Now.Subtract(_start), vector));
+            if (_start is null) return;
+
+            _jumps.Add((DateTimeOffset.Now.Subtract(_start.Value), vector));
             RaisePropertyChanged(nameof(JumpCount));
             Logger.Debug($"Detected jump #{JumpCount}. Force {vector.Length()}");
 
