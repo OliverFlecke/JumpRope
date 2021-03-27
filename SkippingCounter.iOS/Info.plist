@@ -21,9 +21,9 @@
 	<key>MinimumOSVersion</key>
 	<string>13</string>
 	<key>CFBundleDisplayName</key>
-	<string>SkippingCounter</string>
+	<string>Jump Rope Counter</string>
 	<key>CFBundleIdentifier</key>
-	<string>me.oliverflecke.skippingcounter.SkippingCounter</string>
+	<string>me.oliverflecke.skippingcounter</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>

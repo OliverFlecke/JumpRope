@@ -17,5 +17,7 @@
     <PackageReference Include="Microcharts.Forms" Version="0.9.5.9" />
     <PackageReference Include="System.Text.Json" Version="5.0.1" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
+    <PackageReference Include="System.Linq.Async" Version="5.0.0" />
+    <PackageReference Include="Humanizer.Core" Version="2.8.26" />
   </ItemGroup>
 </Project>

@@ -1,9 +1,11 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Serilog;
 using SkippingCounter.Models;
 using SkippingCounter.Services;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -29,14 +31,12 @@ namespace SkippingCounter.ViewModels
 
         public bool IsRefreshing { get => _isRefreshing; set => SetProperty(ref _isRefreshing, value); }
 
-        public ObservableCollection<SkippingSession> Sessions { get; } = new ObservableCollection<SkippingSession>();
+        public ObservableRangeCollection<SkippingSession> Sessions { get; } = new ObservableRangeCollection<SkippingSession>();
 
         void Refresh() => Task.Run(async () =>
         {
-            await foreach (var item in _dataStore.GetItemsAsync())
-            {
-                await MainThread.InvokeOnMainThreadAsync(() => Sessions.Add(item));
-            }
+            var items = await _dataStore.GetItemsAsync(true).ToListAsync();
+            MainThread.BeginInvokeOnMainThread(() => Sessions.ReplaceRange(items));
 
             IsRefreshing = false;
         });

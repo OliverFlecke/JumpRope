@@ -9,19 +9,25 @@
     Title="History"
     x:DataType="vm:SessionHistoryViewModel"
     x:Class="SkippingCounter.Views.SessionHistoryPage">
-    <StackLayout>
-        <RefreshView Command="{Binding RefreshCmd}" IsRefreshing="{Binding IsRefreshing}">
-            <CollectionView ItemsSource="{Binding Sessions}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:SkippingSession">
-                        <StackLayout>
-                            <Label Text="{Binding Start, StringFormat='{0:s}'}" />
+    <StackLayout Margin="10">
+            <RefreshView Command="{Binding RefreshCmd}" IsRefreshing="{Binding IsRefreshing}">
+        <ScrollView>
+                <CollectionView ItemsSource="{Binding Sessions}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:SkippingSession">
+                            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                                <Label Text="{Binding Start, Converter={app:HumanizeConverter}}" FontSize="Large" />
+                                <Label Text="{Binding Duration, Converter={app:HumanizeConverter}}" FontSize="Small" Grid.Row="1" />
 
-                            <Label Text="{Binding Jumps.Count}" />
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </RefreshView>
+                                <Label Text="{Binding Jumps.Count, StringFormat='Jumps {0}'}" Grid.Column="1" FontSize="Large" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+        </ScrollView>
+            </RefreshView>
     </StackLayout>
 </ContentPage>
