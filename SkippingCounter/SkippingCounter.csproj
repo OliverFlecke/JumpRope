@@ -23,4 +23,7 @@
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.2.0" />
     <PackageReference Include="Mobile.BuildTools" Version="2.0.0.1007-pre" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources/Fonts/*.ttf" />
+  </ItemGroup>
 </Project>
