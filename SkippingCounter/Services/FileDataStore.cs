@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using Serilog;
 using Xamarin.Essentials;
+using System.Linq;
 
 namespace SkippingCounter.Services
 {
@@ -51,9 +52,8 @@ namespace SkippingCounter.Services
         public async IAsyncEnumerable<T> GetItemsAsync(bool forceRefresh = false)
         {
             _logger.Information($"Getting all items for {nameof(T)}");
-            foreach (var filename in Directory.GetFiles(StorageDirectory))
+            foreach (var filename in Directory.GetFiles(StorageDirectory).Reverse())
             {
-                _logger.Debug($"Getting filename {filename}");
                 var item = await ReadAsync(filename);
                 if (item is not null) yield return item;
             }
@@ -70,10 +70,7 @@ namespace SkippingCounter.Services
         {
             try
             {
-                //using var reader = File.OpenRead(filename);
-                var content = await File.ReadAllTextAsync(filename);
-                return JsonSerializer.Deserialize<T?>(content);
-                //return JsonSerializer.DeserializeAsync<T?>(reader);
+                return JsonSerializer.Deserialize<T?>(await File.ReadAllTextAsync(filename));
             }
             catch (Exception ex)
             {
