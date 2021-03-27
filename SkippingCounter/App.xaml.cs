@@ -2,6 +2,8 @@
 using Serilog;
 using System;
 using Microsoft.Extensions.DependencyInjection;
+using SkippingCounter.Services;
+using SkippingCounter.Models;
 
 namespace SkippingCounter
 {
@@ -20,6 +22,8 @@ namespace SkippingCounter
             var services = new ServiceCollection();
 
             if (register is not null) register(services);
+
+            services.AddSingleton<IDataStore<SkippingSession>, FileDataStore<SkippingSession>>();
 
             ViewModelLocator.RegisterViewModels(services);
 

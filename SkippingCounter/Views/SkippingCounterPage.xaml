@@ -3,6 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
     xmlns:app="clr-namespace:SkippingCounter"
     xmlns:vm="clr-namespace:SkippingCounter.ViewModels"
     Title="Counter"
@@ -14,6 +15,8 @@
         <Label Text="Counter" FontSize="Title" />
 
         <Label Text="{Binding JumpCount}" FontSize="40" HorizontalOptions="Center" />
+
+        <!--<microcharts:ChartView Chart="{Binding AccelerationChart}" />-->
 
         <StackLayout VerticalOptions="EndAndExpand">
             <Button Text="Start" Command="{Binding StartCountingCmd}" IsVisible="{Binding IsCounting, Converter={xct:InvertedBoolConverter}}" />

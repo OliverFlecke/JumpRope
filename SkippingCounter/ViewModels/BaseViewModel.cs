@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Xamarin.Forms;
-using SkippingCounter.Models;
-using SkippingCounter.Services;
 using Serilog;
 
 namespace SkippingCounter.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
-    {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
-
+    { 
         public BaseViewModel(ILogger logger)
         {
             Logger = logger;
