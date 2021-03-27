@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:app="clr-namespace:SkippingCounter"
+    app:ViewModelLocator.AutoWireViewModel="True"
+    xmlns:vm="clr-namespace:SkippingCounter.ViewModels"
+    xmlns:models="clr-namespace:SkippingCounter.Models"
+    Title="History"
+    x:DataType="vm:SessionHistoryViewModel"
+    x:Class="SkippingCounter.Views.SessionHistoryPage">
+    <StackLayout>
+        <RefreshView Command="{Binding RefreshCmd}" IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView ItemsSource="{Binding Sessions}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:SkippingSession">
+                        <StackLayout>
+                            <Label Text="{Binding Start, StringFormat='{0:s}'}" />
+
+                            <Label Text="{Binding Jumps.Count}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </StackLayout>
+</ContentPage>

@@ -43,20 +43,44 @@ namespace SkippingCounter.Services
         public ValueTask<T?> GetItemAsync(string id)
         {
             var filename = GetFilename(id);
-            if (!File.Exists(filename)) return new ValueTask<T?>(null);
+            if (!File.Exists(filename)) return new ValueTask<T?>();
 
-            using var reader = File.OpenRead(filename);
-            return JsonSerializer.DeserializeAsync<T?>(reader);
+            return ReadAsync(filename);
         }
 
-        public Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false)
+        public async IAsyncEnumerable<T> GetItemsAsync(bool forceRefresh = false)
         {
-            throw new NotImplementedException();
+            _logger.Information($"Getting all items for {nameof(T)}");
+            foreach (var filename in Directory.GetFiles(StorageDirectory))
+            {
+                _logger.Debug($"Getting filename {filename}");
+                var item = await ReadAsync(filename);
+                if (item is not null) yield return item;
+            }
+
+            yield break;
         }
 
         public Task<bool> UpdateItemAsync(T item)
         {
             throw new NotImplementedException();
+        }
+
+        async ValueTask<T?> ReadAsync(string filename)
+        {
+            try
+            {
+                //using var reader = File.OpenRead(filename);
+                var content = await File.ReadAllTextAsync(filename);
+                return JsonSerializer.Deserialize<T?>(content);
+                //return JsonSerializer.DeserializeAsync<T?>(reader);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Unable to read file");
+
+                return default;
+            }
         }
 
         string GetFilename(string id) => Path.Join(StorageDirectory, $"{id}.json");

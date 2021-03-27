@@ -18,8 +18,9 @@ namespace SkippingCounter.ViewModels
         readonly IAccelerometer _accelerometer;
         readonly IDataStore<SkippingSession> _skippingStore;
 
+        readonly List<(TimeSpan, Vector3)> _jumps = new();
+
         DateTimeOffset _start;
-        List<(TimeSpan, Vector3)> _jumps = new();
         int _goal = Preferences.Get(Constants.PreferenceKeys.JumpGoal, 100);
 
         public SkippingCounterViewModel(

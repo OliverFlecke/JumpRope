@@ -4,13 +4,6 @@
        xmlns:local="clr-namespace:SkippingCounter.Views"
        Title="SkippingCounter"
        x:Class="SkippingCounter.AppShell">
-
-    <!--
-        The overall app visual hierarchy is defined here, along with navigation.
-    
-        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
-    -->
-
     <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
@@ -31,5 +24,6 @@
 
     <TabBar>
         <ShellContent Title="Counter" Route="CounterPage" ContentTemplate="{DataTemplate local:SkippingCounterPage}" />
+        <ShellContent Title="History" Route="HistoryPage" ContentTemplate="{DataTemplate local:SessionHistoryPage}" />
     </TabBar>
 </Shell>

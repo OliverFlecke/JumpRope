@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using SkippingCounter.ViewModels;
 using Xamarin.Forms;
 
@@ -23,6 +24,7 @@ namespace SkippingCounter
         public static void RegisterViewModels(IServiceCollection services)
         {
             services.AddTransient<SkippingCounterViewModel>();
+            services.AddTransient<SessionHistoryViewModel>();
         }
 
         static void OnAutoWireViewModelChanged(BindableObject bindable, object oldValue, object newValue)
@@ -36,7 +38,11 @@ namespace SkippingCounter
                 .Replace("Page", "View");
 
             var viewModelType = Type.GetType(viewModelName);
-            if (viewModelType is null) return;
+            if (viewModelType is null)
+            {
+                Container.GetRequiredService<ILogger>().Warning($"Unable to find view model for '{viewName}'");
+                return;
+            }
 
             var viewModel = Container.GetRequiredService(viewModelType);
             view.BindingContext = viewModel;

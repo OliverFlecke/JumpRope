@@ -9,6 +9,6 @@ namespace SkippingCounter.Services
         Task<bool> UpdateItemAsync(T item);
         Task<bool> DeleteItemAsync(string id);
         ValueTask<T?> GetItemAsync(string id);
-        Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
+        IAsyncEnumerable<T> GetItemsAsync(bool forceRefresh = false);
     }
 }
