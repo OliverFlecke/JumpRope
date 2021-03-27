@@ -23,6 +23,10 @@ namespace SkippingCounter
 
             if (register is not null) register(services);
 
+            // Services
+            services.AddSingleton<IAccelerometer, AccelerometerService>();
+
+            // Stores
             services.AddSingleton<IDataStore<SkippingSession>, FileDataStore<SkippingSession>>();
 
             ViewModelLocator.RegisterViewModels(services);
