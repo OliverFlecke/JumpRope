@@ -19,7 +19,8 @@ namespace SkippingCounter.ViewModels
         readonly IDataStore<SkippingSession> _skippingStore;
 
         DateTimeOffset _start;
-        List<TimeSpan> _jumps = new();
+        List<(TimeSpan, Vector3)> _jumps = new();
+        int _goal = 10;
 
         public SkippingCounterViewModel(
             ILogger logger,
@@ -47,7 +48,14 @@ namespace SkippingCounter.ViewModels
 
         public ICommand ResetCountCmd { get; }
 
-        public int GoalCount { get; set; } = 10;
+        public string Goal
+        {
+            get => _goal.ToString();
+            set
+            {
+                if (int.TryParse(value, out int g)) SetProperty(ref _goal, g);
+            }
+        }
 
         public int JumpCount => _jumps.Count;
 
@@ -70,11 +78,11 @@ namespace SkippingCounter.ViewModels
 
         void WhenJumped(Vector3 vector)
         {
-            _jumps.Add(DateTimeOffset.Now.Subtract(_start));
+            _jumps.Add((DateTimeOffset.Now.Subtract(_start), vector));
             RaisePropertyChanged(nameof(JumpCount));
             Logger.Debug($"Detected jump #{JumpCount}. Force {vector.Length()}");
 
-            if (JumpCount >= GoalCount) FireAlarm();
+            if (JumpCount >= _goal) FireAlarm();
         }
 
         async void FireAlarm()
