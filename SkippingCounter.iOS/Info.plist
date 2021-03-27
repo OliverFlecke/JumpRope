@@ -23,7 +23,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>Jump Rope</string>
 	<key>CFBundleIdentifier</key>
-	<string>me.oliverflecke.skippingcounter</string>
+	<string>me.oliverflecke.jumprope</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
