@@ -25,6 +25,7 @@ namespace SkippingCounter
         {
             services.AddTransient<SkippingCounterViewModel>();
             services.AddTransient<SessionHistoryViewModel>();
+            services.AddTransient<PreferenceViewModel>();
         }
 
         static void OnAutoWireViewModelChanged(BindableObject bindable, object oldValue, object newValue)

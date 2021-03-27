@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:local="clr-namespace:SkippingCounter.Views"
+       xmlns:views="clr-namespace:SkippingCounter.Views"
        xmlns:icons="clr-namespace:SkippingCounter.Resources.Icons"
        Title="SkippingCounter"
        x:Class="SkippingCounter.AppShell">
@@ -24,14 +24,19 @@
     </Shell.Resources>
 
     <TabBar>
-        <ShellContent Title="Counter" Route="CounterPage" ContentTemplate="{DataTemplate local:SkippingCounterPage}">
+        <ShellContent Title="Counter" Route="Counter" ContentTemplate="{DataTemplate views:SkippingCounterPage}">
             <ShellContent.Icon>
                 <FontImageSource Glyph="{Static icons:Ionicons.Body}" FontFamily="Ionicons" />
             </ShellContent.Icon>
         </ShellContent>
-        <ShellContent Title="History" Route="HistoryPage" ContentTemplate="{DataTemplate local:SessionHistoryPage}">
+        <ShellContent Title="History" Route="History" ContentTemplate="{DataTemplate views:SessionHistoryPage}">
             <ShellContent.Icon>
                 <FontImageSource Glyph="{Static icons:Ionicons.History}" FontFamily="Ionicons" />
+            </ShellContent.Icon>
+        </ShellContent>
+        <ShellContent Title="Preferences" Route="Preferences" ContentTemplate="{DataTemplate views:PreferencePage}">
+            <ShellContent.Icon>
+                <FontImageSource Glyph="{Static icons:Ionicons.Options}" FontFamily="Ionicons" />
             </ShellContent.Icon>
         </ShellContent>
     </TabBar>

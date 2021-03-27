@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:app="clr-namespace:SkippingCounter"
+    app:ViewModelLocator.AutoWireViewModel="True"
+    xmlns:vm="clr-namespace:SkippingCounter.ViewModels"
+    Title="Preferences"
+    x:DataType="vm:PreferenceViewModel"
+    x:Class="SkippingCounter.Views.PreferencePage">
+    <Grid
+        Margin="10"
+        ColumnDefinitions="Auto,*"
+        RowDefinitions="Auto,Auto"
+        ColumnSpacing="15">
+        <Grid.Behaviors>
+            <xct:ImpliedOrderGridBehavior />
+        </Grid.Behaviors>
+
+        <Label Text="Jump threshold" Style="{StaticResource PreferenceLabel}" />
+        <Entry Text="{Binding JumpThreshold}" Keyboard="Numeric">
+            <Entry.Behaviors>
+                <xct:NumericValidationBehavior
+                    InvalidStyle="{StaticResource InvalidEntry}"
+                    Flags="ValidateOnValueChanging" />
+            </Entry.Behaviors>
+        </Entry>
+    </Grid>
+
+    <ContentPage.Resources>
+        <Style TargetType="Label" x:Key="PreferenceLabel">
+            <Setter Property="VerticalTextAlignment" Value="Center" />
+        </Style>
+    </ContentPage.Resources>
+</ContentPage>
