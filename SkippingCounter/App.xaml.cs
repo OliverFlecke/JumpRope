@@ -31,6 +31,7 @@ namespace SkippingCounter
             if (register is not null) register(services);
 
             // Services
+            services.AddSingleton<ThemeHandler>();
             services.AddSingleton<IAccelerometer, AccelerometerService>();
 
             // Stores
@@ -40,6 +41,8 @@ namespace SkippingCounter
 
             Container = services.BuildServiceProvider();
             _logger = Container.GetRequiredService<ILogger>();
+            Container.GetRequiredService<ThemeHandler>();
+
             MainPage = new AppShell();
         }
 

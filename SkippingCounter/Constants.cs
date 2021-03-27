@@ -7,6 +7,7 @@
         public static class PreferenceKeys
         {
             public const string JumpGoal = "JumpGoal";
+            public const string Theme = "Theme";
         }
     }
 }

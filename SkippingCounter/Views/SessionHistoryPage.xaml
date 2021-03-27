@@ -10,8 +10,8 @@
     x:DataType="vm:SessionHistoryViewModel"
     x:Class="SkippingCounter.Views.SessionHistoryPage">
     <StackLayout Margin="10">
-            <RefreshView Command="{Binding RefreshCmd}" IsRefreshing="{Binding IsRefreshing}">
-        <ScrollView>
+        <RefreshView Command="{Binding RefreshCmd}" IsRefreshing="{Binding IsRefreshing}">
+            <ScrollView>
                 <CollectionView ItemsSource="{Binding Sessions}">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
@@ -20,14 +20,18 @@
                         <DataTemplate x:DataType="models:SkippingSession">
                             <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
                                 <Label Text="{Binding Start, Converter={app:HumanizeConverter}}" FontSize="Large" />
-                                <Label Text="{Binding Duration, Converter={app:HumanizeConverter}}" FontSize="Small" Grid.Row="1" />
+                                <Label
+                                    Text="{Binding Duration, Converter={app:HumanizeConverter}}"
+                                    TextColor="{DynamicResource TextSecondaryColor}"
+                                    FontSize="Small"
+                                    Grid.Row="1" />
 
-                                <Label Text="{Binding Jumps.Count, StringFormat='Jumps {0}'}" Grid.Column="1" FontSize="Large" />
+                                <Label Text="{Binding Jumps.Count, StringFormat='{0} jumps'}" Grid.Column="1" FontSize="Large" />
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-        </ScrollView>
-            </RefreshView>
+            </ScrollView>
+        </RefreshView>
     </StackLayout>
 </ContentPage>
