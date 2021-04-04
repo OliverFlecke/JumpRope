@@ -23,7 +23,7 @@ namespace SkippingCounter
 
         public static void RegisterViewModels(IServiceCollection services)
         {
-            services.AddTransient<SkippingCounterViewModel>();
+            services.AddTransient<CounterViewModel>();
             services.AddTransient<SessionHistoryViewModel>();
             services.AddTransient<PreferenceViewModel>();
         }

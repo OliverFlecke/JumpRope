@@ -24,7 +24,7 @@
     </Shell.Resources>
 
     <TabBar>
-        <ShellContent Title="Counter" Route="Counter" ContentTemplate="{DataTemplate views:SkippingCounterPage}">
+        <ShellContent Title="Counter" Route="Counter" ContentTemplate="{DataTemplate views:CounterPage}">
             <ShellContent.Icon>
                 <FontImageSource Glyph="{Static icons:Ionicons.Body}" FontFamily="Ionicons" />
             </ShellContent.Icon>

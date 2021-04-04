@@ -7,8 +7,8 @@
     app:ViewModelLocator.AutoWireViewModel="True"
     xmlns:vm="clr-namespace:SkippingCounter.ViewModels"
     Title="Counter"
-    x:DataType="vm:SkippingCounterViewModel"
-    x:Class="SkippingCounter.Views.SkippingCounterPage">
+    x:DataType="vm:CounterViewModel"
+    x:Class="SkippingCounter.Views.CounterPage">
 
     <StackLayout Margin="10">
         <StackLayout Orientation="Horizontal" Padding="0,10">

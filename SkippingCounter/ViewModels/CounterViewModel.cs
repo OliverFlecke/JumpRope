@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace SkippingCounter.ViewModels
 {
-    public class SkippingCounterViewModel : BaseViewModel
+    public class CounterViewModel : BaseViewModel
     {
         const SensorSpeed Speed = SensorSpeed.Fastest;
 
@@ -23,7 +23,7 @@ namespace SkippingCounter.ViewModels
         DateTimeOffset? _start;
         int _goal = Preferences.Get(Constants.PreferenceKeys.JumpGoal, 100);
 
-        public SkippingCounterViewModel(
+        public CounterViewModel(
             ILogger logger,
             IAccelerometer accelerometer,
             IDataStore<SkippingSession> skippingStore)
