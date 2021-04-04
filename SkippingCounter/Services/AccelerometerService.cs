@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Numerics;
-using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using Xamarin.Essentials;
 
@@ -8,7 +7,7 @@ namespace SkippingCounter.Services
 {
     public class AccelerometerService : IAccelerometer
     {
-        float _jumpThreshold = 2; // TODO: Should be configurable
+        public float JumpThreshold { get; set; } = Preferences.Get(Constants.PreferenceKeys.JumpThreshold, Constants.Defaults.JumpThreshold);
 
         public bool IsMonitoring => Accelerometer.IsMonitoring;
 
@@ -29,8 +28,8 @@ namespace SkippingCounter.Services
 
                 var receiver = OnReadingChanged().Subscribe(acc =>
                 {
-                    var length = acc.Length();
-                    if (length > _jumpThreshold && length > (peakLength ?? float.MinValue))
+                    var length = acc.LengthSquared();
+                    if (length > JumpThreshold && length > (peakLength ?? float.MinValue))
                     {
                         peak = acc;
                         peakLength = length;
@@ -43,7 +42,7 @@ namespace SkippingCounter.Services
                     }
                 });
 
-                return Disposable.Create(receiver.Dispose);
+                return receiver.Dispose;
             });
 
         public IObservable<Vector3> OnReadingChanged() =>

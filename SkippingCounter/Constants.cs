@@ -13,7 +13,7 @@
 
         public static class Defaults
         {
-            public const float JumpThreshold = 3;
+            public const float JumpThreshold = 4 ^ 2;
         }
     }
 }

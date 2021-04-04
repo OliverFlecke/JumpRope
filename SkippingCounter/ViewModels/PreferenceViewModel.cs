@@ -5,11 +5,16 @@ namespace SkippingCounter.ViewModels
 {
     public class PreferenceViewModel : BaseViewModel
     {
+        readonly IAccelerometer _accelerometer;
+
         float _jumpThreshold = Preferences.Get(Constants.PreferenceKeys.JumpThreshold, Constants.Defaults.JumpThreshold);
 
-        public PreferenceViewModel(ILogger logger)
+        public PreferenceViewModel(
+            ILogger logger,
+            IAccelerometer accelerometer)
             : base(logger)
         {
+            _accelerometer = accelerometer;
         }
 
         public float JumpThreshold
@@ -18,6 +23,7 @@ namespace SkippingCounter.ViewModels
             set
             {
                 _jumpThreshold = value;
+                _accelerometer.JumpThreshold = value;
                 Preferences.Set(Constants.PreferenceKeys.JumpThreshold, value);
             }
         }

@@ -6,6 +6,8 @@ namespace SkippingCounter
 {
     public interface IAccelerometer
     {
+        float JumpThreshold { get; set; }
+
         bool IsMonitoring { get; }
 
         void Start(SensorSpeed speed);
